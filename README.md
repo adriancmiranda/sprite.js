@@ -37,7 +37,7 @@ Documentation is centralized in the _[gh-page](http://adriancmiranda.github.io/s
 ## How to install __sprite.js__ in your project
 
 ```bash
-bower install --save-dev adriancmiranda/sprite.js
+bower install --save-dev sprite=adriancmiranda/sprite.js
 ```
 
 ## How to build your own __sprite.js__
