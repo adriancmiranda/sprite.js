@@ -32,7 +32,7 @@ Works everywhere.
 
 ## Documentation
 
-Documentation is centralized in the _[__gh-page__](http://adriancmiranda.github.io/sprite.js)_, which makes it way easier to maintain and keep always up to date. _Only available in Portuguese yet, but there is an of examples collection available [__here__](https://github.com/adriancmiranda/sprite.js/tree/master/examples)._
+Documentation is centralized in the _[gh-page](http://adriancmiranda.github.io/sprite.js)_, which makes it way easier to maintain and keep always up to date. _Only available in Portuguese yet, but there is an of examples collection available [here](https://github.com/adriancmiranda/sprite.js/tree/master/examples)._
 
 ## How to install __sprite.js__ in your project
 
