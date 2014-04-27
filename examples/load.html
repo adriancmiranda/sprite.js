@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<!--[if IE 8]><html lang="pt-br" class="no-js ie8 oldie"><![endif]-->
+<!--[if IE 9]><html lang="pt-br" class="no-js ie9"><![endif]-->
+<!--[if gt IE 9]><!-->
+<html lang="pt-br" class="no-js">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+	<meta name="description" content=""/>
+	<title>AM.Sprite - load</title>
+	<style>
+		body {
+			background-color: #333;
+		}
+		#mushroom {
+			position: absolute;
+			margin: auto;
+			background: url("resources/mushroom.png") no-repeat 0 -10px;
+			width: 189px;
+			height: 233px;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+		}
+	</style>
+</head>
+<body>
+	<div id="mushroom">
+	</div><!--/mushroom-->
+	<script src="../dist/sprite.js"></script>
+	<script>
+		var mushroom = new AM.Sprite(document.getElementById('mushroom'), {
+			totalFrames: 14,
+			columns: 5,
+			rows: 3
+		});
+		mushroom.load({
+			onLoad: function () {
+				window.alert('mushroom is ready!');
+				window.console.log([
+					'AM.Sprite:',
+					'\t- id:' + mushroom.id,
+					'\t- name:' + mushroom.name,
+					'\t- element:' + mushroom.element,
+					'\t- image.url:' + mushroom.image.url,
+					'\t- image.x:' + mushroom.image.x,
+					'\t- image.y:' + mushroom.image.y,
+					'\t- image.width:' + mushroom.image.width,
+					'\t- image.height:' + mushroom.image.height,
+					'\t- image.object:' + mushroom.image.object,
+					'\t- fps:' + mushroom.fps,
+					'\t- totalFrames:' + mushroom.totalFrames,
+					'\t- currentFrame:' + mushroom.currentFrame,
+					'\t- duration:' + mushroom.duration,
+					'\t- vertical:' + mushroom.vertical,
+					'\t- tileW:' + mushroom.tileW,
+					'\t- tileH:' + mushroom.tileH,
+					'\t- columns:' + mushroom.columns,
+					'\t- rows:' + mushroom.rows,
+					'\t- column:' + mushroom.column,
+					'\t- row:' + mushroom.row,
+					'\t- lastFrame:' + mushroom.lastFrame,
+					'\t- targetNextFrame:' + mushroom.targetNextFrame,
+					'\t- targetFrame:' + mushroom.targetFrame,
+					'\t- offsetX:' + mushroom.offsetX,
+					'\t- offsetY:' + mushroom.offsetY,
+					'\t- reverse:' + mushroom.reverse,
+					'\t- running:' + mushroom.running,
+					'\t- looping:' + mushroom.looping,
+					'\t- yoyo:' + mushroom.yoyo,
+					'\t- timeline:' + mushroom.timeline
+				].join('\n'));
+			}
+		});
+	</script>
+</body>
+</html>

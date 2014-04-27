@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<!--[if IE 8]><html lang="pt-br" class="no-js ie8 oldie"><![endif]-->
+<!--[if IE 9]><html lang="pt-br" class="no-js ie9"><![endif]-->
+<!--[if gt IE 9]><!-->
+<html lang="pt-br" class="no-js">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+	<meta name="description" content=""/>
+	<title>AM.Sprite - loopBetween</title>
+	<style>
+		body {
+			background-color: #333;
+		}
+		#mushroom {
+			position: absolute;
+			margin: auto;
+			background: url("resources/mushroom-order.png") no-repeat 0 -10px;
+			width: 189px;
+			height: 233px;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+		}
+	</style>
+</head>
+<body>
+	<div id="mushroom">
+	</div><!--/mushroom-->
+	<script src="../dist/sprite.js"></script>
+	<script>
+		var mushroom = new AM.Sprite(document.getElementById('mushroom'), {
+			totalFrames: 14,
+			columns: 5,
+			rows: 3
+		});
+		mushroom.element.onclick = function () {
+			if (mushroom.running) {
+				mushroom.pause();
+			} else {
+				mushroom.loopBetween(mushroom.currentFrame, 0, true);
+			}
+		};
+		mushroom.loopBetween(1, 7, true);
+	</script>
+</body>
+</html>

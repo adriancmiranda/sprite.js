@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>AM Test Runner</title>
+		<link rel="stylesheet" href="../components/mocha/mocha.css" />
+	</head>
+	<body>
+		<div id="mocha">
+			<p>
+				<a href=".">Index</a>
+			</p>
+		</div>
+		<div id="sprite"></div>
+		<div id="messages"></div>
+		<div id="fixtures"></div>
+		<script src="../components/cheerio/lib/cheerio.js"></script>
+		<script src="../components/mocha/mocha.js"></script>
+		<script src="../components/chai/chai.js"></script>
+		<script src="../dist/sprite.js"></script>
+		<script>mocha.setup('bdd')</script>
+		<script src="methods.js"></script>
+		<script>
+			mocha.checkLeaks();
+			mocha.globals(['AM']);
+			mocha.run();
+		</script>
+	</body>
+</html>

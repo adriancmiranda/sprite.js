@@ -1,0 +1,30 @@
+{
+  "name": "sprite.js",
+  "version": "0.0.1",
+  "main": "dist/sprite.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "~1.9.1",
+    "mocha": "~1.18.2",
+    "cheerio": "~0.15.0"
+  },
+  "keywords": [
+    "sprite",
+    "spritesheet",
+    "animation",
+    "javascript",
+    "library"
+  ],
+  "ignore": [
+    "components",
+    "node_modules",
+    "package.json",
+    "gulpfile.js",
+    "bower.json",
+    "source",
+    "test",
+    "**/.*"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+	"directory": "components",
+	"json": "bower.json",
+	"searchpath": [
+		"https://www.npmjs.org/package/sprite.js",
+		"https://github.com/adriancmiranda/sprite.js"
+	]
+}

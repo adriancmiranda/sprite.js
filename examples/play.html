@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<!--[if IE 8]><html lang="pt-br" class="no-js ie8 oldie"><![endif]-->
+<!--[if IE 9]><html lang="pt-br" class="no-js ie9"><![endif]-->
+<!--[if gt IE 9]><!-->
+<html lang="pt-br" class="no-js">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+	<meta name="description" content=""/>
+	<title>AM.Sprite - play</title>
+	<style>
+		body {
+			background-color: #333;
+		}
+		#hero {
+			position: absolute;
+			margin: auto;
+			background: url("resources/hero-spritesheet@32x4.png") no-repeat 0 0;
+			width: 121px;
+			height: 92px;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+		}
+	</style>
+</head>
+<body>
+	<div id="hero" data-totalFrames="124" data-columns="32" data-rows="4">
+	</div><!--/hero-->
+	<script src="../dist/sprite.js"></script>
+	<script>
+		var hero = new AM.Sprite(document.getElementById('hero'));
+		hero.play();
+	</script>
+</body>
+</html>

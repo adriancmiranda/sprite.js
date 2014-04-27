@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<!--[if IE 8]><html lang="pt-br" class="no-js ie8 oldie"><![endif]-->
+<!--[if IE 9]><html lang="pt-br" class="no-js ie9"><![endif]-->
+<!--[if gt IE 9]><!-->
+<html lang="pt-br" class="no-js">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+	<meta name="description" content=""/>
+	<title>AM.Sprite - play</title>
+	<style>
+		body {
+			background-color: #333;
+		}
+		#btParticipe {
+			position: absolute;
+			margin: auto;
+			background: url("resources/bt-participe.png") no-repeat 0 0;
+			width: 200px;
+			height: 108px;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+		}
+	</style>
+</head>
+<body>
+	<div id="btParticipe" data-fps="32" data-columns="6" data-rows="5">
+	</div><!--/btParticipe-->
+	<script src="../dist/sprite.js"></script>
+	<script>
+		var btParticipe = new AM.Sprite(document.getElementById('btParticipe'));
+		btParticipe.element.onmouseover = function () {
+			btParticipe.gotoAndStop(1);
+			btParticipe.play(14);
+		};
+		btParticipe.element.onmouseout = function () {
+			btParticipe.gotoAndStop(15);
+			btParticipe.play(21);
+		};
+		btParticipe.element.onmousedown = function () {
+			btParticipe.gotoAndStop(22);
+			btParticipe.play(27);
+		};
+		btParticipe.element.onclick = function () {
+			btParticipe.playToEndAndStop({
+				onCompleteParams: ['name', 'description'],
+				onComplete: function (name, description) {
+					window.console.log([
+						'Name: ' + name,
+						'Description: ' + description,
+						'--'
+					].join('\n'));
+				}
+			});
+		};
+	</script>
+</body>
+</html>
