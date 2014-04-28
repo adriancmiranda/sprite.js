@@ -1,107 +1,381 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>Sprite.js by adriancmiranda</title>
-  </head>
+<!doctype html>
+<!--[if lt IE 7]><html lang="pt-br" class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html lang="pt-br" class="no-js lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]><html lang="pt-br" class="no-js lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="pt-br" class="no-js">
+<!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<title>Sprite.js</title>
+		<meta name="description" content="Sprite.js é uma pequena, mas poderosa biblioteca JavaScript para animações baseadas em sprites.">
+		<meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" href="styles/07cc0342.skin.css">
+		<script src="scripts/vendor/d7100892.modernizr.js"></script>
+	</head>
+	<body>
+		<div class="wrapper">
 
-  <body>
-    <div id="container">
-      <div class="inner">
+			<!-- Header -->
+			<header class="header">
+			</header>
 
-        <header>
-          <h1>Sprite.js</h1>
-          <h2>Sprite.js is a small JavaScript library for simple but powerful sprite based animations. </h2>
-        </header>
+			<!-- Content -->
+			<div class="content">
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/adriancmiranda/sprite.js/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/adriancmiranda/sprite.js/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/adriancmiranda/sprite.js" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
+				<!-- Explanation -->
+				<h2>Criando animações</h2>
+				<p>Animações em <a>AM</a> são manipuladas com uma instância de <a>AM.Sprite</a> - Uma classe que manipula uma grande imagem que contém todos os quadros da animação.</p>
+				<p>O número do quadro de um <a>AM.Sprite</a> começa em <code>1</code> no canto superior esquerdo e continua em sentido de leitura horizontal ou vertical.</p>
 
-        <hr>
+				<!-- IMGSample -->
+				<img src="images/samples/d35b1631.mushroom.png" width="100%">
+				
+				<p>Para criar uma instância de <a>AM.Sprite</a>, você especifica um elemento html onde poderá também definir propriedades de animação (e.g. <code>data-fps*</code>, <code>data-totalFrames</code>, <code>data-currentFrame</code>, <code>data-vertical</code>, <code>data-tileW</code>, <code>data-tileH</code>, <code>data-columns*</code> e <code>data-rows*</code>):</p>
+				<h3 class="preheader">HTML</h3>
+				<pre class="html">
+					&lt;div class="mushroom" data-totalFrames="14" data-columns="5" data-rows="3"&gt;
+					&lt;/div&gt;&lt;!--/mushroom--&gt;
+				</pre>
 
-        <section id="main_content">
-          <p><img src="http://i.imgur.com/CEEbHaw.gif" alt="sprite.js"></p>
+				<p>Este elemento deve ser formatado com o sprite (<code>background</code>), e opcionalmente a altura (<code>height</code>) e largura (<code>width</code>) para cada quadro da imagem via css e.g.:</p>
+				<h3 class="preheader">CSS</h3>
+				<pre class="css">
+					.mushroom {
+						background: url("mushroom.png") no-repeat 0 -10px;
+						width: 189px; /* deixa opcional o uso de tileW */
+						height: 233px; /* deixa opcional o uso de tileH */
+					}
+				</pre>
 
-<blockquote>
-<p><strong>sprite.js</strong> is a small JavaScript library for simple but powerful sprite based animations.
-It takes an element, and changes the background position to create an animation effect.</p>
-</blockquote>
+				<p>Você deve também espeficar seu comportamento, fazendo uso de <a>AM.Sprite</a> que espera dois argumentos, o primeiro é um objeto DOM, que é o nosso html já interpretado pelo browser e o segundo um objeto com uma série de opções i.e.:</p>
+				<h3 class="preheader">JavaScript</h3>
+				<pre class="javascript">
+					{
+						fps: 24, // Frames Per Second.
+						totalFrames: 1, // O número total de quadros no sprite.
+						currentFrame: 1, // O quadro onde começará a animação.
+						vertical: false, // Leitura vertical ou horizontal
+						tileW: 0, // A largura de um único frame do sprite.
+						tileH: 0, // A altura de um único frame do sprite.
+						columns: 0,  // O número de colunas no sprite.
+						rows: 0 // O número de linhas no sprite.
+					}
+				</pre>
 
-<p><a href="https://travis-ci.org/adriancmiranda/sprite.js" title="build status"><img src="https://travis-ci.org/adriancmiranda/sprite.js.png?branch=master" alt="build status"></a> <a href="https://david-dm.org/adriancmiranda/sprite.js" title="dependencies status"><img src="https://david-dm.org/adriancmiranda/sprite.js.png?theme=shields.io" alt="dependencies status"></a> <a href="https://david-dm.org/adriancmiranda/sprite.js#info=devDependencies" title="devDependencies status"><img src="https://david-dm.org/adriancmiranda/sprite.js/dev-status.png?theme=shields.io" alt="devDependency status"></a></p>
+				<p>Quando você cria um <a>AM.Sprite</a>, e entrega um objeto <a>HTMLElement</a>, e algumas informações sobre o sprite, isso dá todo o controle do sprite e torna possível sua animação e.g.:</p>
 
+				<!-- JSample -->
+				<h3 class="preheader">JavaScript</h3>
+				<pre class="javascript">
+					// Cria uma instância de AM.Sprite com o arquivo mushroom.png
+					// que possui 189x233 pixels em cada quadro definido no css. O sprite
+					// possui 5 colunas de quadros na horizontal e 3 na vertical com
+					// apenas 14 quadros de animação especificados no html via dataset.
+					// Também foi declarado 32 quadros por segundo em nossa instância.
+					var mushroom = new AM.Sprite(document.querySelector('.mushroom'), { fps: 32 });
 
+					// Roda a animação até o final, que, quando chega no último
+					// quadro, volta para o primeiro até que se defina uma pausa.
+					mushroom.play();
+				</pre>
 
+				<!-- Tip -->
+				<p>Depois de você ter criado uma animação básica, você deve estar apto a usar <a>AM.Sprite</a>, mas vale dar uma conferida nos métodos abaixo para ter um controle maior de suas animações.</p>
 
+				<!-- Constructor -->
+				<h2>Construtor</h2>
 
+				<div id="animation" class="help constructor">
+					<h3>AM.Sprite(element:HTMLElement, options:Object):void</h3>
+					<p>Cria uma nova instância de <code>AM.Sprite</code>.</p>
+				</div>
 
+				<!-- Properties -->
+				<h2>Propriedades</h2>
 
-<h2>
-<a name="performance" class="anchor" href="#performance"><span class="octicon octicon-link"></span></a>Performance</h2>
+				<!-- fps -->
+				<div id="fps" class="help property">
+					<h3>[somente leitura] .fps:Number = 24</h3>
+					<p></p>
+				</div>
 
-<p><strong>sprite.js</strong> is chained to the <em><code>requestAnimationFrame</code></em> (with a polyfill for older browsers) and optimized for speed and garbage collection. What <strong>sprite.js</strong> does, cannot be done faster.
-That being said, animating the element background is not the fastest possible way how to do this kind of animations (canvas solutions are faster), but it is sure as hell the most simple one, and compatible with everything from IE6 and up.</p>
+				<!-- columns -->
+				<div id="columns" class="help property">
+					<h3>[somente leitura] .columns:uint = 0</h3>
+					<p></p>
+				</div>
 
-<h2>
-<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h2>
+				<!-- rows -->
+				<div id="rows" class="help property">
+					<h3>[somente leitura] .rows:uint = 0</h3>
+					<p></p>
+				</div>
 
-<p><strong>sprite.js</strong> has no dependencies.</p>
+				<!-- column -->
+				<div id="column" class="help property">
+					<h3>[somente leitura] .column:uint = 0</h3>
+					<p></p>
+				</div>
 
-<h2>
-<a name="compatibility" class="anchor" href="#compatibility"><span class="octicon octicon-link"></span></a>Compatibility</h2>
+				<!-- row -->
+				<div id="row" class="help property">
+					<h3>[somente leitura] .row:uint = 0</h3>
+					<p></p>
+				</div>
 
-<p>Works everywhere.</p>
+				<!-- vertical -->
+				<div id="vertical" class="help property">
+					<h3>[somente leitura] .vertical:Boolean = false</h3>
+					<p></p>
+				</div>
 
-<h2>
-<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
+				<!-- tileW -->
+				<div id="tileW" class="help property">
+					<h3>[somente leitura] .tileW:Number = 0</h3>
+					<p></p>
+				</div>
 
-<p>Documentation is centralized in the <em><a href="http://adriancmiranda.github.io/sprite.js">gh-page</a></em>, which makes it way easier to maintain and keep always up to date. <em>Only available in Portuguese yet, but there is an of examples collection available <a href="https://github.com/adriancmiranda/sprite.js/tree/master/examples">here</a>.</em></p>
+				<!-- tileH -->
+				<div id="tileH" class="help property">
+					<h3>[somente leitura] .tileH:Number = 0</h3>
+					<p></p>
+				</div>
 
-<h2>
-<a name="how-to-install-spritejs-in-your-project" class="anchor" href="#how-to-install-spritejs-in-your-project"><span class="octicon octicon-link"></span></a>How to install <strong>sprite.js</strong> in your project</h2>
+				<!-- timeline -->
+				<div id="timeline" class="help property">
+					<h3>[somente leitura] .timeline:Array = []</h3>
+					<p></p>
+				</div>
 
-<div class="highlight highlight-bash"><pre>bower install --save-dev adriancmiranda/sprite.js
-</pre></div>
+				<!-- lastFrame -->
+				<div id="lastFrame" class="help property">
+					<h3>[somente leitura] .lastFrame:uint = 0</h3>
+					<p></p>
+				</div>
 
-<h2>
-<a name="how-to-build-your-own-spritejs" class="anchor" href="#how-to-build-your-own-spritejs"><span class="octicon octicon-link"></span></a>How to build your own <strong>sprite.js</strong>
-</h2>
+				<!-- targetNextFrame -->
+				<div id="targetNextFrame" class="help property">
+					<h3>[somente leitura] .targetNextFrame:uint = 0</h3>
+					<p></p>
+				</div>
 
-<p>Clone a copy of the main <strong>sprite.js</strong> git repo by running:</p>
+				<!-- targetFrame -->
+				<div id="targetFrame" class="help property">
+					<h3>[somente leitura] .targetFrame:uint = 0</h3>
+					<p></p>
+				</div>
 
-<div class="highlight highlight-bash"><pre>git clone git@github.com:adriancmiranda/sprite.js.git <span class="o">&amp;&amp;</span> <span class="nb">cd </span>sprite.js
-</pre></div>
+				<!-- offsetX -->
+				<div id="offsetX" class="help property">
+					<h3>[somente leitura] .offsetX:Number = 0</h3>
+					<p></p>
+				</div>
 
-<p>Run the build script:</p>
+				<!-- offsetY -->
+				<div id="offsetY" class="help property">
+					<h3>[somente leitura] .offsetY:Number = 0</h3>
+					<p></p>
+				</div>
 
-<div class="highlight highlight-bash"><pre>npm run build
-</pre></div>
+				<!-- reverse -->
+				<div id="reverse" class="help property">
+					<h3>[somente leitura] .reverse:Boolean = false</h3>
+					<p></p>
+				</div>
 
-<p>The built version of <strong>sprite.js</strong> will be put in the <code>dist/</code> subdirectory, along with the minified copy and associated map file.</p>
+				<!-- running -->
+				<div id="running" class="help property">
+					<h3>[somente leitura] .running:Boolean = false</h3>
+					<p>Valor booleano que indica se uma animação está sendo reproduzida.</p>
+				</div>
 
-<h2>
-<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+				<!-- looping -->
+				<div id="looping" class="help property">
+					<h3>[somente leitura] .looping:Boolean = false</h3>
+					<p>Valor booleano que indica se uma animação está sendo repetida.</p>
+				</div>
 
-<p><a href="https://github.com/adriancmiranda/generator-gulp-requirejs/blob/master/LICENSE" title="MIT LICENSE">MIT</a></p>
-        </section>
+				<!-- yoyo -->
+				<div id="yoyo" class="help property">
+					<h3>[somente leitura] .yoyo:Boolean = false</h3>
+					<p>Trabalha em conjunto com o estabelecimento de repetição, a determinação do comportamento de cada ciclo. Quando <code>yoyo</code> é <code>true</code>, a interpolação vai ir e voltar, revertendo qualquer outro ciclo (embora este não tenha efeito sobre a propriedade <code>reverse</code>).</p>
+					<p>Então, se <code>repeat</code> é <code>2</code> e <code>yoyo</code> é <code>false</code>, ele vai olhar como:<br>início - 1 - 2 - 3 - 1 - 2 - 3 - 1 - 2 - 3 - fim.</p>
+					<p>Entretanto, se <code>repeat</code> é <code>2</code> e <code>yoyo</code> é <code>true</code>, ele vai olhar como: <br>início - 1 - 2 - 3 - 3 - 2 - 1 - 1 - 2 - 3 - fim.</p>
+					<span class="label">@Veja também:</span><br>
+					<ul>
+						<li><a href="#reverse">.reverse</a></li>
+						<li><a href="#repeat">.repeat</a></li>
+						<li><a href="#yoyo">.yoyo</a></li>
+					</ul>
+				</div>
 
-        <footer>
-          Sprite.js is maintained by <a href="https://github.com/adriancmiranda">adriancmiranda</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
+				<!-- currentFrame -->
+				<div id="currentFrame" class="help property">
+					<h3>[somente leitura] .currentFrame:uint = 1</h3>
+					<p>Especifica o número do quadro no qual o indicador de reprodução está localizado na linha do tempo na instância da animação.</p>
+					<p class="sample">
+						<span class="label">@Exemplo:</span><br>
+						O código a seguir usa o método <code>gotoAndStop()</code> e a propriedade <code>currentFrame</code> para direcionar o indicador de reprodução da animação <code>robot</code> de forma a mover cinco quadros à frente do seu local atual e interromper:
+					</p>
+					<h3 class="preheader">JavaScript</h3>
+					<pre class="javascript">
+						robot.gotoAndStop(robot.currentFrame + 5);
+					</pre>
+					<span class="label">@Veja também:</span><br>
+					<ul>
+						<li><a href="#gotoAndStop">.gotoAndStop();</a></li>
+						<li><a href="#jumpFrames">.jumpFrames();</a></li>
+					</ul>
+				</div>
 
-        
-      </div>
-    </div>
-  </body>
+				<!-- totalFrames -->
+				<div id="totalFrames" class="help property">
+					<h3>[somente leitura] .totalFrames:uint = 0</h3>
+					<p>O número total de quadros na instância da animação.</p>
+					<p>Se a animação tiver vários quadros, a propriedade <code>totalFrames</code> retornará o número total de quadros carregados em todas as cenas na animação.</p>
+					<p class="sample">
+						<span class="label">@Exemplo:</span><br>
+						O código a seguir ilustra o uso da propriedade <code>totalFrames</code> de um objeto <code>AM.Animation</code> denominado <code>robot</code>:
+					</p>
+					<h3 class="preheader">JavaScript</h3>
+					<pre class="javascript">
+						console.log(robot.totalFrames);
+					</pre>
+				</div>
+
+				<!-- duration -->
+				<div id="duration" class="help property">
+					<h3>[somente leitura] .duration:Number = 0</h3>
+					<p>O tempo total da animação em segundos. Note que a duração não inclui qualquer repetição ou tempo de espera.</p>
+				</div>
+
+				<!-- Methods -->
+				<h2>Métodos</h2>
+
+				<!-- gotoAndPlay -->
+				<div id="gotoAndPlay" class="help method">
+					<h3>.gotoAndPlay(frame:uint, scene:String = null):void</h3>
+					<p>Inicia a reprodução a partir do quadro especificado. Para especificar uma cena e um quadro, especifique um valor para o parâmetro cena.</p>
+					<p class="sample">
+						<span class="label">@Parâmetros:</span><br>
+						<code class="label">frame:Object</code> — Um número que representa o número do quadro, ou uma string que representa o rótulo do quadro, ao qual o indicador de reprodução é enviado. Se você especificar um número, ele será relativo ao palco especificado. Se você não especificar uma cena, a cena atual determinará o número do quadro global a ser reproduzido. Se você especificar uma cena, o indicador de reprodução saltará para o número do quadro na cena especificada.<br>
+						<code class="label">scene:String (default = null)</code> — O nome da cena a ser reproduzida. Este parâmetro é opcional.
+					</p>
+					<p class="sample">
+						<span class="label">@Exemplo:</span><br>
+						O código a seguir usa o método <code>gotoAndPlay()</code> para direcionar o indicador de reprodução da animação <code>queen</code> de forma a mover cinco quadros à frente do seu local atual:
+					</p>
+					<h3 class="preheader">JavaScript</h3>
+					<pre class="javascript">
+						queen.gotoAndPlay(queen.currentFrame + 5);
+					</pre>
+					<span class="label">@Veja também:</span><br>
+					<ul>
+						<li><a href="#currentFrame">.currentFrame</a></li>
+					</ul>
+				</div>
+
+				<div id="gotoAndStop" class="help method">
+					<h3>.gotoAndStop(frame:uint):void</h3>
+					<p>Traz o indicador de reprodução para o quadro especificado da animação e o interrompe nesse local.</p>
+					<p class="sample">
+						<span class="label">@Parâmetros:</span><br>
+						<code class="label">frame:Object</code> — Um número que representa o número do quadro, ou uma string que representa o rótulo do quadro, ao qual o indicador de reprodução é enviado. Se você especificar um número, ele será relativo ao palco especificado. Se você não especificar uma cena, a cena atual determinará o número do quadro global a ser acessado e no qual parar. Se você especificar uma cena, o indicador de reprodução irá para o número do quadro na cena especificada e será interrompido.<br>
+						<code class="label">scene:String (default = null)</code> — O nome da cena. Este parâmetro é opcional.
+					</p>
+				</div>
+
+				<div id="nextFrame" class="help method">
+					<h3>.nextFrame():void</h3>
+					<p>Envia o indicador de reprodução ao próximo quadro e o interrompe.</p>
+					<p class="sample">
+						<span class="label">@Exemplo:</span><br>
+						No exemplo a seguir, dois botões controlam a linha do tempo. O botão <code>prev</code> move o indicador de reprodução até o quadro anterior, enquanto o botão <code>next</code> move o indicador de reprodução até o próximo quadro.
+					</p>
+					<h3 class="preheader">JavaScript</h3>
+					<pre class="javascript">
+						next.addEventListener('click', goForward);
+						prev.addEventListener('click', goBack);
+
+						function goForward(ev) {
+							char.nextFrame();
+						}
+
+						function goBack(ev) {
+							char.prevFrame();
+						}
+					</pre>
+					<span class="label">@Veja também:</span><br>
+					<ul>
+						<li><a href="#prevFrame">.prevFrame();</a></li>
+					</ul>
+				</div>
+
+				<div id="prevFrame" class="help method">
+					<h3>.prevFrame():void</h3>
+					<p>Envia o indicador de reprodução ao quando anterior e o interrompe.</p>
+					<p class="sample">
+						<span class="label">@Exemplo:</span><br>
+						No exemplo a seguir, dois botões controlam a linha do tempo. O botão <code>prev</code> move o indicador de reprodução até o quadro anterior, enquanto o botão <code>next</code> move o indicador de reprodução até o próximo quadro.
+					</p>
+					<h3 class="preheader">JavaScript</h3>
+					<pre class="javascript">
+						next.addEventListener('click', goForward);
+						prev.addEventListener('click', goBack);
+
+						function goForward(ev) {
+							boat.nextFrame();
+						}
+
+						function goBack(ev) {
+							boat.prevFrame();
+						}
+					</pre>
+					<span class="label">@Veja também:</span><br>
+					<ul>
+						<li><a href="#nextFrame">.nextFrame();</a></li>
+					</ul>
+				</div>
+
+				<div id="play" class="help method">
+					<h3>.play(...frame:uint, ...options:Object):void</h3>
+					<p>Move o indicador de reprodução na linha do tempo da animação.</p>
+					<p class="sample">
+						<span class="label">@Exemplo:</span><br>
+						O código a seguir usa o método <code>stop()</code> para interromper um clipe de filme denominado <code>lazy</code> e para reiniciar a reprodução quando o usuário clicar no botão <code>alarmClock</code>:
+					</p>
+					<h3 class="preheader">JavaScript</h3>
+					<pre class="javascript">
+						lazy.stop();
+
+						alarmClock.addEventListener('click', pushLazy);
+
+						function pushLazy(ev) {
+							lazy.play();
+						}
+					</pre>
+				</div>
+
+				<div id="stop" class="help method">
+					<h3>.stop():void</h3>
+					<p>Para o indicador de reprodução na animação.</p>
+				</div>
+			</div>
+
+			<!-- Signature -->
+			<footer class="footer">
+				<div class="copyright content">
+					made with love ♥ by
+					<a href="//linkedin.com/profile/view?id=79363778" title="LinkedIn" alt="LinkedIn">
+						© AM
+					</a>
+				</div>
+			</footer>
+		</div>
+
+		<script src="scripts/930d99da.vendor.js"></script>
+
+		<script src="scripts/afc910a3.main.js"></script>
+</body>
 </html>

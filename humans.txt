@@ -1,0 +1,11 @@
+/* TEAM */
+    Author: Adrian C. Miranda
+    Site: adriancmiranda@gmail.com
+    Twitter: @adriancmiranda
+
+/* SITE */
+    Last update: 2014/04/27
+    Language: JavaScript
+    Components: Sprite.js
+    Doctype: HTML5
+    Software: VIM
