@@ -51,7 +51,7 @@
     "url": "https://github.com/adriancmiranda/sprite.js/issues"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=0.10.22"
   },
   "scripts": {
     "build": "npm install && gulp",
