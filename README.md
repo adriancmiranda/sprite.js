@@ -3,7 +3,10 @@
 > __sprite.js__ is a small JavaScript library for simple but powerful sprite based animations.
 It takes an element, and changes the background position to create an animation effect.
 
-[![build status][travis_build_status_image]][travis_build_status_url] [![dependencies status][david_dependencies_status_image]][david_dependencies_status_url] [![devDependency status][david_devdependencies_status_image]][david_devdependencies_status_url]
+[![build status][travis_build_status_image]][travis_build_status_url] 
+[![dependencies status][david_dependencies_status_image]][david_dependencies_status_url] 
+[![devDependency status][david_devdependencies_status_image]][david_devdependencies_status_url] 
+[![Total views][sourcegraph_views_image]][sourcegraph_views_url]
 
 <!-- travis -->
 [travis_build_status_image]: https://travis-ci.org/adriancmiranda/sprite.js.png?branch=master
@@ -16,6 +19,10 @@ It takes an element, and changes the background position to create an animation 
 <!-- david devDependencies -->
 [david_devdependencies_status_image]: https://david-dm.org/adriancmiranda/sprite.js/dev-status.png?theme=shields.io
 [david_devdependencies_status_url]: https://david-dm.org/adriancmiranda/sprite.js#info=devDependencies "devDependencies status"
+
+<!-- sourcegraph - views -->
+[sourcegraph_views_image]: https://sourcegraph.com/api/repos/github.com/adriancmiranda/sprite.js/counters/views.png
+[sourcegraph_views_url]: https://sourcegraph.com/github.com/adriancmiranda/sprite.js "views"
 
 ## Performance
 
