@@ -63,5 +63,8 @@ npm run build
 
 The built version of __sprite.js__ will be put in the `dist/` subdirectory, along with the minified copy and associated map file.
 
+## Helpfull
+* [SwfSpriteSheet – Sprite sheets from Flash](http://fermmm.wordpress.com/2011/02/04/swf-spritesheet-creator/ "SwfSpriteSheet – Sprite sheets from Flash")
+
 ## License
 [MIT](https://github.com/adriancmiranda/generator-gulp-requirejs/blob/master/LICENSE "MIT LICENSE")
