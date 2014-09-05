@@ -73,6 +73,10 @@ AM.Sprite = function (element, options) {
 			}
 		};
 	};
+	
+	$this.refresh = function () {
+		// N/A yet.
+        };
 
 	$this.play = function (frame, vars) {
 		$this.pause();
