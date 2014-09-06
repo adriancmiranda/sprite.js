@@ -23,7 +23,6 @@
     //| @see http://code.google.com/p/jsdoc-toolkit/wiki/TagReference
     //'
     'use strict';
-
     (function () {
         var i, lastTime, vendors, rAF, cAF, cRF;
         lastTime = 0;
@@ -53,7 +52,6 @@
             };
         }
     }());
-
     function getDefinitionName(value, strict) {
         if (value === false) {
             return 'Boolean';
@@ -75,7 +73,6 @@
         }
         return value;
     }
-
     function typeOf(value, strict) {
         var type = typeof value;
         if (value === false) {
@@ -96,7 +93,6 @@
         }
         return value ? type : value;
     }
-
     function num(value, ceiling) {
         value = window.parseFloat(value);
         value = window.isNaN(value) || !window.isFinite(value) ? 0 : value;
@@ -105,23 +101,19 @@
         }
         return value;
     }
-
     function bool(value) {
         if (typeOf(value) === 'string') {
             return /^(true|(^[1-9][0-9]*$)$|yes|y|sim|s|on)$/gi.test(value);
         }
         return !!value;
     }
-
     function int(value) {
         return 0 | window.parseInt(value, 10);
     }
-
     function uint(value) {
         value = int(value);
         return value < 0 ? 0 : value;
     }
-
     function data(element, key, value) {
         if (!typeOf(element)) {
             return null;
@@ -131,7 +123,6 @@
         }
         element.setAttribute('data-' + key, value);
     }
-
     function merge(defaults, options, element) {
         var option, output = {};
         options = typeOf(options) === 'object' ? options : {};
@@ -145,7 +136,6 @@
         }
         return output;
     }
-
     function gridLayout(length, columns, width, height, marginX, marginY, vertical) {
         var id, row, column, offsetX, offsetY, positions = [];
         for (id = 0; id < length; id++) {
@@ -164,14 +154,12 @@
         }
         return positions;
     }
-
     function getStyle(element, property) {
         if (window.getComputedStyle) {
             return window.getComputedStyle(element, null)[property];
         }
         return element.currentStyle[property];
     }
-
     function getBackgroundOffsetFrom(element) {
         var position = (getStyle(element, 'backgroundPosition') || getStyle(element, 'backgroundPositionX') + ' ' + getStyle(element, 'backgroundPositionY')).replace(/left|top/gi, 0).split(' ');
         return {
@@ -179,19 +167,41 @@
             y: int(position[1])
         };
     }
-
     function getBackgroundImageFrom(element) {
         var url = getStyle(element, 'backgroundImage') || '';
         return url.replace(/url\(|\)|"|'/g, '');
     }
-
+    function getBackgroundSizeFrom(element) {
+        var backgroundSize, pxRE, pcRE, size;
+        backgroundSize = (getStyle(element, 'backgroundSize') || '').split(' ');
+        pxRE = /^(0|[0-9]+.?[0-9]+?px)$/;
+        pcRE = /^(0|[0-9]+.?[0-9]+?\%)$/;
+        size = {
+            x: 1,
+            y: 1
+        };
+        if (pxRE.test(backgroundSize[0])) {
+            size.x = parseInt(backgroundSize[0]);
+            size.y = parseInt(backgroundSize[0]);
+        }
+        if (pcRE.test(backgroundSize[0])) {
+            size.x = parseFloat(backgroundSize[0]) / 100 || 1;
+            size.y = parseFloat(backgroundSize[0]) / 100 || 1;
+        }
+        if (pxRE.test(backgroundSize[1])) {
+            size.y = parseInt(backgroundSize[1]);
+        }
+        if (pcRE.test(backgroundSize[1])) {
+            size.y = parseFloat(backgroundSize[1]) / 100 || 1;
+        }
+        return size;
+    }
     function bound(value, min, max) {
         value = num(value);
         min = num(min);
         max = num(max);
         return value > max ? max : value < min ? min : value;
     }
-
     function mod(value, min, max) {
         value = num(value);
         min = num(min);
@@ -199,7 +209,6 @@
         value = value % max;
         return num(value < min ? value + max : value);
     }
-
     // Externalize
     AM.Utils = AM.Utils || {};
     AM.Utils.getDefinitionName = getDefinitionName;
@@ -214,43 +223,33 @@
     AM.Utils.getStyle = getStyle;
     AM.Utils.getBackgroundOffsetFrom = getBackgroundOffsetFrom;
     AM.Utils.getBackgroundImageFrom = getBackgroundImageFrom;
+    AM.Utils.getBackgroundSizeFrom = getBackgroundSizeFrom;
     AM.Utils.bound = bound;
     AM.Utils.mod = mod;
-
     AM.Sprite = function (element, options) {
-
         //|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //|
         //| Private properties
         //| only priveleged methods may view/edit/invoke
         //|
         //|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-        var $this = this,
-        	$static = $this.constructor.static,
-        	_bgPoint = getBackgroundOffsetFrom(element),
-        	_bgUrl = getBackgroundImageFrom(element),
-        	_fromToTimeout = 0,
-        	_delayTimeout = 0,
-        	_factor = 1,
-        	_requestID = null,
-        	_vars = {};
-
+        var $this = this, $static = $this.constructor.static, _bgPoint = getBackgroundOffsetFrom(element), _bgUrl = getBackgroundImageFrom(element), _bgSize = getBackgroundSizeFrom(element), _fromToTimeout = 0, _delayTimeout = 0, _factor = 1, _requestID = null, _vars = {};
         //|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //|
         //| Public properties - Anyone may read/write
         //|
         //|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
         $this.id = $static.instances++;
         $this.element = element;
         $this.image = {
-            object: new Image(),
             url: _bgUrl,
+            size: _bgSize,
+            object: new Image(),
             x: _bgPoint.x,
             y: _bgPoint.y
         };
         $this.options = merge($static.defaults, options, $this.element);
+        $this.responsive = bool($this.options.responsive);
         $this.fps = num($this.options.fps);
         $this.totalFrames = Math.max(1, uint($this.options.totalFrames));
         $this.columns = uint($this.options.columns);
@@ -275,7 +274,6 @@
         $this.running = false;
         $this.looping = false;
         $this.yoyo = false;
-
         //|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //|
         //| Privileged methods:
@@ -283,7 +281,6 @@
         //| may not be changed; may be replaced with public flavors
         //|
         //|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
         $this.load = function (vars) {
             vars = typeOf(vars) === 'object' ? vars : {};
             $this.image.object.src = $this.image.url;
@@ -295,7 +292,12 @@
                 }
             };
         };
-
+        $this.refresh = function () {
+            $this.tileW = num($this.options.tileW) || $this.element.clientWidth;
+            $this.tileH = num($this.options.tileH) || $this.element.clientHeight;
+            $this.timeline = gridLayout($this.totalFrames, $this.vertical ? $this.rows : $this.columns, $this.tileW, $this.tileH, 0, 0, $this.vertical);
+            drawFrame($this.currentFrame);
+        };
         $this.play = function (frame, vars) {
             $this.pause();
             if (typeOf(frame, true) === 'uint') {
@@ -311,35 +313,28 @@
             }
             addDelay(num(_vars.delay));
         };
-
         $this.pause = function () {
             removeDelay();
             clearAnimation(_requestID);
             _requestID = null;
         };
-
         $this.togglePause = function () {
             $this[_requestID ? 'pause' : 'play']();
         };
-
         $this.stop = function () {
             removeDelay();
             drawFrame(0);
             $this.pause();
         };
-
         $this.playToBeginAndStop = function (vars) {
             $this.play(0, vars);
         };
-
         $this.playToEndAndStop = function (vars) {
             $this.play($this.totalFrames, vars);
         };
-
         $this.gotoRandomFrame = function () {
             $this.gotoAndStop(~~(Math.random() * $this.totalFrames) + 1);
         };
-
         $this.fromTo = function (from, to, vars) {
             vars = typeOf(vars) === 'object' ? vars : {};
             window.clearTimeout(_fromToTimeout);
@@ -350,31 +345,25 @@
                 $this.play(to, vars);
             }, num(vars.delay));
         };
-
         $this.gotoAndPlay = function (frame) {
             removeDelay();
             drawFrame(frame);
             $this.play();
         };
-
         $this.gotoAndStop = function (frame) {
             removeDelay();
             drawFrame(frame);
             $this.pause();
         };
-
         $this.nextFrame = function () {
             $this.jumpFrames(0 + 1);
         };
-
         $this.prevFrame = function () {
             $this.jumpFrames(0 - 1);
         };
-
         $this.jumpFrames = function (amount) {
             $this.gotoAndStop($this.currentFrame + int(amount));
         };
-
         $this.loopBetween = function (from, to, yoyo, vars) {
             from = bound(from, 1, $this.totalFrames);
             to = bound(to, 0, $this.totalFrames);
@@ -388,24 +377,20 @@
             }
             $this.play(to, vars);
         };
-
         $this.cancelLooping = function () {
             $this.running = false;
             $this.looping = false;
             $this.yoyo = false;
         };
-
         $this.toString = function () {
             return 'AM[Sprite ' + $this.id + ']';
         };
-
         //|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //|
         //| Private functions
         //| only priveleged methods may view/edit/invoke
         //|
         //|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
         function addDelay(delay) {
             removeDelay();
             _delayTimeout = window.setTimeout(function () {
@@ -416,13 +401,11 @@
                 $this.running = true;
             }, delay);
         }
-
         function removeDelay() {
             window.clearTimeout(_delayTimeout);
             $this.running = false;
             _delayTimeout = 0;
         }
-
         function setAnimation(callback, element, fps) {
             var params, id;
             if (typeOf(callback) !== 'function') {
@@ -448,7 +431,6 @@
             }());
             return id;
         }
-
         function clearAnimation(id) {
             if (typeOf($static.animations[id])) {
                 window.clearTimeout($static.animations[id].timeout);
@@ -456,7 +438,6 @@
                 delete $static.animations[id];
             }
         }
-
         function drawFrame(frame) {
             $this.lastFrame = $this.currentFrame;
             $this.currentFrame = mod(uint(frame), 1, $this.totalFrames);
@@ -466,7 +447,6 @@
             $this.offsetY = $this.timeline[$this.currentFrame - 1].y + $this.image.y;
             $this.element.style.backgroundPosition = $this.offsetX + 'px ' + $this.offsetY + 'px';
         }
-
         function onUpdateFrames() {
             if (typeof _vars.onUpdate === 'function') {
                 _vars.onUpdate.apply($this, _vars.onUpdateParams);
@@ -491,18 +471,17 @@
             }
         }
     };
-
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     //
     // Static - Anyone may read/write
     //
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
     AM.Sprite.static = {
         instances: 0,
         animationID: 0,
         animations: {},
         defaults: {
+            responsive: false,
             fps: 24,
             totalFrames: 1,
             currentFrame: 1,
@@ -513,5 +492,4 @@
             rows: 0
         }
     };
-
 }(this, this.document, this.AM = this.AM || {}));
