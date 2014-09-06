@@ -132,7 +132,7 @@ function getBackgroundImageFrom(element) {
 }
 
 function getBackgroundSizeFrom(element) {
-	var backgroundSize, pxRE, pcRE, size;
+	var backgroundSize, pxRE, pcRE, size; 
 	backgroundSize = (getStyle(element, 'backgroundSize') || '').split(' ');
 	pxRE = /^(0|[0-9]+.?[0-9]+?px)$/;
 	pcRE = /^(0|[0-9]+.?[0-9]+?\%)$/;
