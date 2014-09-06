@@ -132,22 +132,22 @@ function getBackgroundImageFrom(element) {
 }
 
 function getBackgroundSizeFrom(element) {
-	var backgroundSize, px_re, pc_re, size = { x:1, y:1 };
+	var backgroundSize, pxRE, pcRE, size = { x:1, y:1 };
 	backgroundSize = (getStyle(element, 'backgroundSize') || '').split(' ');
-	px_re = /^(0|[0-9]+.?[0-9]+?px)$/;
-	pc_re = /^(0|[0-9]+.?[0-9]+?\%)$/;
-	if (px_re.test(backgroundSize[0])) {
+	pxRE = /^(0|[0-9]+.?[0-9]+?px)$/;
+	pcRE = /^(0|[0-9]+.?[0-9]+?\%)$/;
+	if (pxRE.test(backgroundSize[0])) {
 		size.x = parseInt(backgroundSize[0]);
 		size.y = parseInt(backgroundSize[0]);
 	}
-	if (pc_re.test(backgroundSize[0])) {
+	if (pcRE.test(backgroundSize[0])) {
 		size.x = (parseFloat(backgroundSize[0]) / 100) || 1;
 		size.y = (parseFloat(backgroundSize[0]) / 100) || 1;
 	}
-	if (px_re.test(backgroundSize[1])) {
+	if (pxRE.test(backgroundSize[1])) {
 		size.y = parseInt(backgroundSize[1]);
 	}
-	if (pc_re.test(backgroundSize[1])) {
+	if (pcRE.test(backgroundSize[1])) {
 		size.y = (parseFloat(backgroundSize[1]) / 100) || 1;
 	}
 	return size;
