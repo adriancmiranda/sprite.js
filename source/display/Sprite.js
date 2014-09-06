@@ -274,6 +274,11 @@ AM.Sprite = function (element, options) {
 			}
 		}
 	}
+
+	if ($this.responsive) {
+        document.body.onresize = $this.refresh;
+        $this.refresh();
+    }
 };
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
