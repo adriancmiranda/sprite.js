@@ -16,6 +16,6 @@
 	},
 	"validateJSDoc": {
 		"checkParamNames": true,
-		"requireParamTypes": true
+		"requireParamTypes": true 
 	}
 }
