@@ -30,6 +30,7 @@ AM.Sprite = function (element, options) {
 	$this.element = element;
 	$this.image = { url: _bgUrl, size: _bgSize, object: new Image(), x: _bgPoint.x, y: _bgPoint.y };
 	$this.options = merge($static.defaults, options, $this.element);
+	$this.responsive = bool($this.options.responsive);
 	$this.fps = num($this.options.fps);
 	$this.totalFrames = Math.max(1, uint($this.options.totalFrames));
 	$this.columns = uint($this.options.columns);
@@ -283,6 +284,7 @@ AM.Sprite.static = {
 	animationID: 0,
 	animations: {},
 	defaults: {
+		responsive: false,
 		fps: 24,
 		totalFrames: 1,
 		currentFrame: 1,
