@@ -240,6 +240,7 @@
         //|
         //|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         $this.id = $static.instances++;
+        $static.instanceList[$this.id] = this;
         $this.element = element;
         $this.image = {
             url: _bgUrl,
@@ -478,6 +479,7 @@
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     AM.Sprite.static = {
         instances: 0,
+        instanceList: [],
         animationID: 0,
         animations: {},
         defaults: {
