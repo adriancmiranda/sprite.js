@@ -2,7 +2,7 @@
   "name": "sprite.js",
   "title": "Sprite",
   "description": "Sprite is a small JavaScript library for simple but powerful sprite based animations.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/sprite.js",
   "homepage": "https://github.com/adriancmiranda/sprite.js",
   "dependencies": {},
