@@ -77,7 +77,10 @@ AM.Sprite = function (element, options) {
 	};
 	
 	$this.refresh = function () {
-		// N/A yet.
+		$this.tileW = num($this.options.tileW) || $this.element.clientWidth;
+		$this.tileH = num($this.options.tileH) || $this.element.clientHeight;
+		$this.timeline = gridLayout($this.totalFrames, $this.vertical ? $this.rows : $this.columns, $this.tileW, $this.tileH, 0, 0, $this.vertical);
+		drawFrame($this.currentFrame);
 	};
 
 	$this.play = function (frame, vars) {
