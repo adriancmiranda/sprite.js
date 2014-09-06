@@ -1,7 +1,7 @@
 /**
  * Sprite
  * @description Sprite is a small JavaScript library for simple but powerful sprite based animations.
- * @version v0.0.1
+ * @version v0.0.2
  * @author Adrian C. Miranda
  * @link https://github.com/adriancmiranda/sprite.js
  * @license MIT

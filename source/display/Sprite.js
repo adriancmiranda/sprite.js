@@ -27,6 +27,7 @@ AM.Sprite = function (element, options) {
 	//|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	$this.id = ($static.instances++);
+	$static.instanceList[$this.id] = this;
 	$this.element = element;
 	$this.image = { url: _bgUrl, size: _bgSize, object: new Image(), x: _bgPoint.x, y: _bgPoint.y };
 	$this.options = merge($static.defaults, options, $this.element);
@@ -284,6 +285,7 @@ AM.Sprite = function (element, options) {
 
 AM.Sprite.static = {
 	instances: 0,
+	instanceList: [],
 	animationID: 0,
 	animations: {},
 	defaults: {
