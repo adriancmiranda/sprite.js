@@ -274,11 +274,6 @@ AM.Sprite = function (element, options) {
 			}
 		}
 	}
-
-	if ($this.responsive) {
-        document.body.onresize = $this.refresh;
-        $this.refresh();
-    }
 };
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -302,4 +297,17 @@ AM.Sprite.static = {
 		columns: 0,
 		rows: 0
 	}
+};
+
+// FIX: By far the worst solution, but for now resolved
+AM.cacheResizer = window.onresize;
+window.onresize = function () {
+    for (var id = 0; id < AM.Sprite.static.instanceList.length; id++) {
+        if (AM.Sprite.static.instanceList[id].responsive) {
+            AM.Sprite.static.instanceList[id].refresh();
+        }
+    }
+    if (AM.cacheResizer) {
+        AM.cacheResizer();
+    }
 };
