@@ -13,6 +13,7 @@ AM.Sprite = function (element, options) {
 		$static = $this.constructor.static,
 		_bgPoint = getBackgroundOffsetFrom(element),
 		_bgUrl = getBackgroundImageFrom(element),
+		_bgSize = getBackgroundSizeFrom(element),
 		_fromToTimeout = 0,
 		_delayTimeout = 0,
 		_factor = 1,
@@ -27,7 +28,7 @@ AM.Sprite = function (element, options) {
 
 	$this.id = ($static.instances++);
 	$this.element = element;
-	$this.image = { url: _bgUrl, object: new Image(), x: _bgPoint.x, y: _bgPoint.y };
+	$this.image = { url: _bgUrl, size: _bgSize, object: new Image(), x: _bgPoint.x, y: _bgPoint.y };
 	$this.options = merge($static.defaults, options, $this.element);
 	$this.fps = num($this.options.fps);
 	$this.totalFrames = Math.max(1, uint($this.options.totalFrames));
@@ -76,7 +77,7 @@ AM.Sprite = function (element, options) {
 	
 	$this.refresh = function () {
 		// N/A yet.
-        };
+	};
 
 	$this.play = function (frame, vars) {
 		$this.pause();
