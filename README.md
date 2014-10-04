@@ -65,6 +65,7 @@ The built version of __sprite.js__ will be put in the `dist/` subdirectory, alon
 
 ## Helpfull
 * [SwfSpriteSheet – Sprite sheets from Flash](http://fermmm.wordpress.com/2011/02/04/swf-spritesheet-creator/ "SwfSpriteSheet – Sprite sheets from Flash")
+* [Responsive CSS Sprites](http://responsive-css.spritegen.com/ "Generate Responsive CSS Sprites")
 
 ## License
 [MIT](https://github.com/adriancmiranda/generator-gulp-requirejs/blob/master/LICENSE "MIT LICENSE")
