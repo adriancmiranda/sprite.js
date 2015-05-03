@@ -63,6 +63,19 @@ npm run build
 
 The built version of __sprite.js__ will be put in the `dist/` subdirectory, along with the minified copy and associated map file.
 
+## CDN
+Use this URL for dev/testing
+
+```javascript
+<script src="https://rawgit.com/adriancmiranda/sprite.js/master/dist/sprite.min.js"></script>
+```
+
+Use this URL in production
+
+```javascript
+<script src="https://cdn.rawgit.com/adriancmiranda/sprite.js/master/dist/sprite.min.js"></script>
+```
+
 ## Helpfull
 * [SwfSpriteSheet – Sprite sheets from Flash](http://fermmm.wordpress.com/2011/02/04/swf-spritesheet-creator/ "SwfSpriteSheet – Sprite sheets from Flash")
 * [Responsive CSS Sprites](http://responsive-css.spritegen.com/ "Generate Responsive CSS Sprites")
