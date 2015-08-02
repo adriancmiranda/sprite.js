@@ -5,8 +5,7 @@ It takes an element, and changes the background position to create an animation 
 
 [![build status][travis_build_status_image]][travis_build_status_url] 
 [![dependencies status][david_dependencies_status_image]][david_dependencies_status_url] 
-[![devDependency status][david_devdependencies_status_image]][david_devdependencies_status_url] 
-[![Total views][sourcegraph_views_image]][sourcegraph_views_url]
+[![devDependency status][david_devdependencies_status_image]][david_devdependencies_status_url]
 
 <!-- travis -->
 [travis_build_status_image]: https://travis-ci.org/adriancmiranda/sprite.js.png?branch=master
