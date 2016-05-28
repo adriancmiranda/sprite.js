@@ -81,4 +81,4 @@ Use this URL in production
 * [Background positions](http://www.spritecow.com/ "Get background positions with Sprite Cow")
 
 ## License
-[MIT](https://github.com/adriancmiranda/generator-gulp-requirejs/blob/master/LICENSE "MIT LICENSE")
+[MIT](https://github.com/adriancmiranda/sprite.js/blob/master/LICENSE "MIT LICENSE")
